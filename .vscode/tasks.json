@@ -1,0 +1,30 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Hello World",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "${workspaceFolder}\\src\\hellowWorld.cpp",
+                "-o",
+                "${workspaceFolder}\\build\\hellowWorld.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "Run Hello World",
+            "type": "shell",
+            "command": "${workspaceFolder}\\build\\hellowWorld.exe",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "dependsOn": "Build Hello World",
+            "dependsOrder": "sequence",
+            "problemMatcher": []
+        }
+    ]
+}
