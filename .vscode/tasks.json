@@ -4,8 +4,79 @@
         {
             "label": "Build Hello World",
             "type": "shell",
+            "command": "javac",
+            "args": [
+                "-d",
+                "${workspaceFolder}\\build\\classes",
+                "${workspaceFolder}\\src\\HelloWorld.java"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Build JAR",
+            "type": "shell",
+            "command": "jar",
+            "args": [
+                "--create",
+                "--file",
+                "${workspaceFolder}\\build\\HelloWorld.jar",
+                "--manifest",
+                "${workspaceFolder}\\src\\META-INF\\MANIFEST.MF",
+                "-C",
+                "${workspaceFolder}\\build\\classes",
+                "."
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "dependsOn": "Build Hello World",
+            "dependsOrder": "sequence",
+            "problemMatcher": []
+        },
+        {
+            "label": "Run Hello World",
+            "type": "shell",
+            "command": "java",
+            "args": [
+                "-cp",
+                "${workspaceFolder}\\build\\classes",
+                "HelloWorld"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "dependsOn": "Build Hello World",
+            "dependsOrder": "sequence",
+            "problemMatcher": []
+        },
+        {
+            "label": "Run JAR",
+            "type": "shell",
+            "command": "java",
+            "args": [
+                "-jar",
+                "${workspaceFolder}\\build\\HelloWorld.jar"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "dependsOn": "Build JAR",
+            "dependsOrder": "sequence",
+            "problemMatcher": []
+        },
+        {
+            "label": "Build C++ Hello World",
+            "type": "shell",
             "command": "g++",
             "args": [
+                "-std=c++17",
+                "-Wall",
+                "-Wextra",
+                "-Wpedantic",
+                "-O2",
                 "${workspaceFolder}\\src\\hellowWorld.cpp",
                 "-o",
                 "${workspaceFolder}\\build\\hellowWorld.exe"
@@ -16,13 +87,22 @@
             "problemMatcher": ["$gcc"]
         },
         {
-            "label": "Run Hello World",
+            "label": "Run C++ Hello World",
             "type": "shell",
             "command": "${workspaceFolder}\\build\\hellowWorld.exe",
             "options": {
                 "cwd": "${workspaceFolder}"
             },
-            "dependsOn": "Build Hello World",
+            "dependsOn": "Build C++ Hello World",
+            "dependsOrder": "sequence",
+            "problemMatcher": []
+        },
+        {
+            "label": "Build All Programs",
+            "dependsOn": [
+                "Build JAR",
+                "Build C++ Hello World"
+            ],
             "dependsOrder": "sequence",
             "problemMatcher": []
         }
